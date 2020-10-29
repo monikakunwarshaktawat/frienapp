@@ -1,0 +1,198 @@
+Content of src/MainActivity.java 
+package com.example.friends.five;
+
+import android.content.Intent;
+import android.os.Build;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+public class MainActivity extends AppCompatActivity
+{
+    private ListView listview;
+    private String[] list;
+    int i;
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        listview=(ListView)findViewById(R.id.lv);
+        list = getResources().getStringArray(R.array.list);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
+        listview.setAdapter(adapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                intent.putExtra("Friends",listview.getItemAtPosition(i).toString());
+                startActivity(intent);
+            }
+        });
+
+    }
+}
+Content of res/layout/activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="511dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp" />
+
+</RelativeLayout>
+Content of src/Main2Activity.java 
+package com.example.friends.five;
+
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class Main2Activity extends AppCompatActivity {
+    TextView t1;
+    
+    TextView t3;
+    ImageView imageView;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+        t1 = (TextView)findViewById(R.id.textView4);
+	 t3 = (TextView)findViewById(R.id.textView6);
+        imageView = (ImageView)findViewById(R.id.imageView);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            t1.setText(bundle.getString("Friends"));
+            if (t1.getText().toString().equalsIgnoreCase("Friend1")){
+                imageView.setImageDrawable(ContextCompat.getDrawable(Main2Activity.this,R.drawable.p)); 
+                t3.setText("Oh My God!");
+
+            }
+            else if (t1.getText().toString().equalsIgnoreCase("Friend2")){
+                imageView.setImageDrawable(ContextCompat.getDrawable(Main2Activity.this,R.drawable.c)); 
+                t3.setText("Great!");
+
+            }
+            else if (t1.getText().toString().equalsIgnoreCase("Friend3")){
+                imageView.setImageDrawable(ContextCompat.getDrawable(Main2Activity.this,R.drawable.jh)); 
+                t3.setText("God save me");
+
+            }
+            else if (t1.getText().toString().equalsIgnoreCase("Friend4")){
+                imageView.setImageDrawable(ContextCompat.getDrawable(Main2Activity.this,R.drawable.m1)); 
+                t3.setText("Like This");
+
+            }
+            else if (t1.getText().toString().equalsIgnoreCase("Friend5")){
+                imageView.setImageDrawable(ContextCompat.getDrawable(Main2Activity.this,R.drawable.m1)); 
+                t3.setText("I am right");
+
+            }
+
+            else {
+                imageView.setImageDrawable(ContextCompat.getDrawable(Main2Activity.this,R.drawable.j)); 
+                t3.setText("I can");
+
+            }
+        }
+    }
+}
+Content of res/layout/activity_main2.xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main2Activity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="87dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="104dp"
+        android:layout_height="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="241dp"
+        android:text="Name"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginBottom="216dp"
+        android:text="Mobile No"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginBottom="145dp"
+        android:text="Interest"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView"
+        android:layout_toEndOf="@+id/textView2"
+        android:text="TextView"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_alignTop="@+id/textView3"
+        android:text="TextView"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_alignTop="@+id/textView2"
+        android:text="TextView"
+        android:textSize="28sp" />
+</RelativeLayout>
+
